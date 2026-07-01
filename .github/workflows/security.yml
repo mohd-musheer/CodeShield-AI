@@ -1,0 +1,39 @@
+name: Security Analysis
+
+on:
+  push:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 0 * * 1' # Weekly Monday scan
+
+jobs:
+  security-scans:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Bandit & Pip-Audit
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit pip-audit
+
+    - name: Run Bandit (Static Scan)
+      run: |
+        bandit -r app/ -x venv/,.venv/ -ll
+
+    - name: Run Pip-Audit (Dependency Check)
+      run: |
+        pip-audit --desc on -r requirements.txt
+
+    - name: Run Semgrep
+      uses: semgrep/semgrep-action@v1
+      with:
+        config: >-
+          p/security-audit
+          p/secrets
