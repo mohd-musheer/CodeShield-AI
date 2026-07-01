@@ -437,6 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function triggerCancelScan() {
         if (!currentScanId) return;
         
+        document.title = "CodeShield AI";
         updateProgress("cancelled", 100, "Cancelling scan...", "Sending cancellation signal to backend...");
         try {
             await fetch(`/repository/cancel/${currentScanId}`, { method: "POST" });
@@ -450,6 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
         progressContainer.classList.add("hidden");
         resetScanButton();
     }
+
 
     // WebSocket / Polling Tracker
     function connectProgressTracker(scanId) {
@@ -562,12 +564,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Map stages status to counts
     function updateProgress(status, percent, title, message, stages = {}) {
+        if (status !== "completed" && status !== "failed" && status !== "cancelled") {
+            document.title = "Scanning... CodeShield AI";
+        }
         progressBarFill.style.width = `${percent}%`;
         progressPercent.textContent = percent;
         progressStatus.textContent = title;
         progressMsg.textContent = message;
+
 
         progCurrentStage.textContent = status.toUpperCase().replace("_", " ");
 
@@ -651,6 +656,14 @@ document.addEventListener("DOMContentLoaded", () => {
         scoreLabel.textContent = riskLabel;
         scoreLabel.style.color = ringColor;
         scoreSummary.textContent = report.score.risk_summary;
+
+        // Dynamic Browser Title based on security score and risk
+        if (score >= 90) {
+            document.title = `CodeShield AI • ${score}% Secure`;
+        } else {
+            document.title = `CodeShield AI • ${riskLabel}`;
+        }
+
 
         // Repository general statistics
         statName.textContent = report.repository_name;
@@ -944,10 +957,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Helper functions
     function showError(msg) {
+        document.title = "CodeShield AI";
         errorMsgText.textContent = msg;
         errorAlert.classList.remove("hidden");
         progressContainer.classList.add("hidden");
     }
+
 
     function resetScanButton() {
         scanBtn.disabled = false;

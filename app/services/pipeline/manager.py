@@ -52,6 +52,7 @@ class ScanLogger:
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
 
     def log(self, level: str, message: str):
+        import logging
         timestamp = datetime.utcnow().isoformat()
         log_line = f"[{timestamp}] [{level}] {message}\n"
         try:
@@ -59,12 +60,22 @@ class ScanLogger:
                 f.write(log_line)
         except Exception as e:
             print(f"[ScanLogger Error] Failed to write scan log: {e}")
-        # Print to stdout/console for standard terminal logging too
-        print(f"[{level}] [Scan {self.scan_id[:8]}] {message}")
+        
+        # Propagate to global rotating scan.log
+        g_logger = logging.getLogger("CodeShieldAI.Scanner")
+        log_level_map = {
+            "INFO": logging.INFO,
+            "WARN": logging.WARNING,
+            "WARNING": logging.WARNING,
+            "ERROR": logging.ERROR,
+            "DEBUG": logging.DEBUG
+        }
+        g_logger.log(log_level_map.get(level.upper(), logging.INFO), f"[Scan {self.scan_id[:8]}] {message}")
 
     def info(self, msg: str): self.log("INFO", msg)
     def warning(self, msg: str): self.log("WARN", msg)
     def error(self, msg: str): self.log("ERROR", msg)
+
 
 
 class PipelineManager:

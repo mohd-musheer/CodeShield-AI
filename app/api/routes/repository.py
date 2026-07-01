@@ -57,15 +57,18 @@ def upload_zip_repository(
             shutil.copyfileobj(file.file, f)
             
         # Extract zip content safely
+        resolved_target = extract_path.resolve()
         with zipfile.ZipFile(zip_path, "r") as z:
-            for name in z.namelist():
-                # Prevent Zip Slip path traversal vulnerabilities
-                if ".." in name or name.startswith("/") or name.startswith("\\"):
+            for member in z.infolist():
+                # Check for Zip Slip vulnerability path traversal
+                target_path = resolved_target.joinpath(member.filename).resolve()
+                if not target_path.is_relative_to(resolved_target):
                     raise HTTPException(
                         status_code=400, 
                         detail="Malicious directory path detected inside ZIP archive (Zip Slip)"
                     )
             z.extractall(extract_path)
+
             
         # Remove the zip file immediately
         try:

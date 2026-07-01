@@ -16,6 +16,8 @@ from app.utils.progress import ProgressTracker
 from app.utils.scan_state import ScanStateManager
 from app.services.pipeline.manager import REPORTS_CACHE, REPORTS_CACHE_LOCK
 from app.models.repository import ScanReport
+from app.core.logging import setup_production_logging
+
 
 app = FastAPI(
     title="CodeShield AI",
@@ -52,7 +54,9 @@ def startup_recovery():
     This ensures that a server restart doesn't lose track of previously completed scans.
     Interrupted (non-terminal) scans are automatically marked as 'FAILED' by ScanStateManager.
     """
+    setup_production_logging()
     print("[Startup] CodeShield AI server starting...")
+
     
     state_manager = ScanStateManager()
     completed_scans = state_manager.get_all_completed()
