@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeShield AI - Repository Security Guard</title>
+    <!-- Favicon and PWA Meta -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#00f2fe">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/index.css">
+
+</head>
+<body class="theme-system">
+    <!-- Glow Background Effects -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <div class="app-container">
+        <!-- Landing Header -->
+        <header class="app-header">
+            <div class="header-top-row">
+                <div class="logo-area">
+                    <svg class="shield-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 11L11 13L15 9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#00f2fe"/>
+                                <stop offset="1" stop-color="#4facfe"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">CodeShield <span class="accent">AI</span></span>
+                </div>
+                <div class="theme-switcher">
+                    <button class="theme-btn active" data-theme="system">System</button>
+                    <button class="theme-btn" data-theme="dark">Dark</button>
+                    <button class="theme-btn" data-theme="light">Light</button>
+                </div>
+            </div>
+            <p class="tagline">Secure your codebase against hardcoded credentials, configuration risks, and software vulnerabilities with semantic AI reasoning.</p>
+        </header>
+
+        <!-- Scan Search Box & Tabs -->
+        <section class="scan-section glass">
+            <div class="input-tabs">
+                <button class="tab-btn active" data-tab="github">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <span>GitHub URL</span>
+                </button>
+                <button class="tab-btn" data-tab="gitlab">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.76 2.2-6.78a.84.84 0 0 1 1.59-.08l2.2 6.78h7.48l2.2-6.78a.84.84 0 0 1 1.59.08l2.2 6.78 1.22 3.76a.84.84 0 0 1-.3.94z"></path></svg>
+                    <span>GitLab URL</span>
+                </button>
+                <button class="tab-btn" data-tab="local">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Local Folder</span>
+                </button>
+                <button class="tab-btn" data-tab="zip">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span>ZIP Upload</span>
+                </button>
+            </div>
+
+            <div id="textInputGroup" class="input-group">
+                <span class="input-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </span>
+                <input type="text" id="repoUrlInput" placeholder="Enter public GitHub Repository URL (e.g. https://github.com/fastapi/fastapi)..." autocomplete="off" />
+                <button id="scanBtn" class="primary-btn">
+                    <span>Scan Repository</span>
+                </button>
+            </div>
+
+            <div id="dragDropGroup" class="drag-drop-zone hidden">
+                <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none" class="drag-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <p class="drag-text">Drag & drop your repository ZIP file here, or <span class="browse-link">browse files</span></p>
+                <input type="file" id="zipFileInput" accept=".zip" class="hidden" />
+                <div id="selectedFileName" class="selected-file hidden"></div>
+            </div>
+        </section>
+
+        <!-- Loader and Advanced Progress Card -->
+        <section id="progressContainer" class="progress-section glass hidden">
+            <div class="progress-header-row">
+                <div class="spinner"></div>
+                <div class="progress-text-block">
+                    <h3 id="progressStatus">Initializing scan...</h3>
+                    <p id="progressMsg">Setting up cloned environment workspace...</p>
+                </div>
+                <div class="progress-percentage-block">
+                    <span id="progressPercent">0</span>%
+                </div>
+            </div>
+            
+            <div class="progress-bar-bg">
+                <div id="progressBarFill" class="progress-bar-fill"></div>
+            </div>
+
+            <!-- Stats grid to enrich progress status information -->
+            <div class="progress-stats-grid">
+                <div class="prog-stat-card">
+                    <span class="prog-stat-lbl">Stage</span>
+                    <span id="progCurrentStage" class="prog-stat-val">-</span>
+                </div>
+                <div class="prog-stat-card">
+                    <span class="prog-stat-lbl">Files Scanned</span>
+                    <span id="progFilesScanned" class="prog-stat-val">0</span>
+                </div>
+                <div class="prog-stat-card">
+                    <span class="prog-stat-lbl">Chunks Checked</span>
+                    <span id="progChunksChecked" class="prog-stat-val">0</span>
+                </div>
+                <div class="prog-stat-card">
+                    <span class="prog-stat-lbl">Findings Found</span>
+                    <span id="progFindingsFound" class="prog-stat-val">0</span>
+                </div>
+                <div class="prog-stat-card">
+                    <span class="prog-stat-lbl">Elapsed Time</span>
+                    <span id="progElapsedTime" class="prog-stat-val">0s</span>
+                </div>
+                <div class="prog-stat-card">
+                    <span class="prog-stat-lbl">Estimated Remaining</span>
+                    <span id="progEstimatedRemaining" class="prog-stat-val">Calculated...</span>
+                </div>
+            </div>
+
+            <div class="cancel-scan-area">
+                <button id="cancelScanBtn" class="cancel-btn">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+                    <span>Cancel Scan</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Empty / Welcome State -->
+        <section id="welcomeState" class="welcome-section glass">
+            <div class="welcome-icon">
+                <svg viewBox="0 0 24 24" width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+            </div>
+            <h2>Scan a Repository to Start</h2>
+            <p>Select your input source (GitHub, GitLab, Local Folder, or ZIP upload) above to initiate semantic security scanning and remediation analysis.</p>
+        </section>
+
+        <!-- Error Alert -->
+        <div id="errorAlert" class="error-alert hidden">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span id="errorMsgText">An error occurred during execution.</span>
+        </div>
+
+        <!-- Dashboard Workspace -->
+        <main id="dashboard" class="dashboard-grid hidden">
+            <!-- Left Column: Metrics & Stats -->
+            <aside class="sidebar-column">
+                <!-- Score Ring widget -->
+                <div class="score-card glass">
+                    <h3>Security Posture</h3>
+                    <div class="score-visualization">
+                        <svg class="score-ring" viewBox="0 0 120 120">
+                            <circle class="score-ring-track" cx="60" cy="60" r="50" stroke-width="8"></circle>
+                            <circle id="scoreRingFill" class="score-ring-fill" cx="60" cy="60" r="50" stroke-width="8" stroke-dasharray="314.16" stroke-dashoffset="314.16"></circle>
+                        </svg>
+                        <div class="score-value-block">
+                            <span id="scoreValue">100</span>
+                            <span class="score-max">/100</span>
+                        </div>
+                    </div>
+                    <div id="scoreLabel" class="score-label">Secure</div>
+                    <p id="scoreSummary" class="score-summary">No vulnerabilities detected.</p>
+                </div>
+
+                <!-- Category Security Health progress bars -->
+                <div class="category-scores-card glass">
+                    <h3>Category Health Scores</h3>
+                    <div id="categoryScoresContainer" class="category-scores-list">
+                        <!-- Progress bars will be injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Repository Details panel -->
+                <div class="stats-card glass">
+                    <h3>Repository Details</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Repository Name</span>
+                        <span id="statName" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Files</span>
+                        <span id="statFiles" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Codebase Size</span>
+                        <span id="statSize" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Frameworks</span>
+                        <span id="statFrameworks" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Scan Duration</span>
+                        <span id="statDuration" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Configs Detected</span>
+                        <span id="statConfigs" class="stat-value">-</span>
+                    </div>
+                </div>
+
+                <!-- Exporter Dropdown / Selector -->
+                <div class="exporter-card glass">
+                    <h3>Export Reports & Prompts</h3>
+                    <div class="export-selector-group">
+                        <select id="exportFormatSelect" class="export-dropdown">
+                            <option value="html">HTML Report (.html)</option>
+                            <option value="json">JSON Scan Report (.json)</option>
+                            <option value="markdown">Markdown Report (.md)</option>
+                            <option value="sarif">SARIF JSON (.sarif)</option>
+                            <option value="csv">CSV Findings (.csv)</option>
+                            <option value="pdf">PDF Report (.pdf)</option>
+                            <option value="fix_prompt_json">AI Fix Prompts (.json)</option>
+                            <option value="fix_prompt_md">AI Fix Prompts (.md)</option>
+                            <option value="fix_prompt_txt">AI Fix Prompts (.txt)</option>
+                            <option value="patch_diff">Unified Patch Diff (.diff)</option>
+                        </select>
+                        <button id="downloadBtn" class="primary-btn">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            <span>Download</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Column: Findings & Filters -->
+            <section class="findings-column">
+                <!-- Filters Bar -->
+                <div class="filters-bar glass">
+                    <div class="search-filter">
+                        <input type="text" id="findingSearch" placeholder="Search by file, title, or CWE..." autocomplete="off" />
+                    </div>
+                    <div class="severity-filters">
+                        <button class="filter-badge active" data-severity="all">All (<span id="countAll">0</span>)</button>
+                        <button class="filter-badge filter-critical" data-severity="critical">Critical (<span id="countCritical">0</span>)</button>
+                        <button class="filter-badge filter-high" data-severity="high">High (<span id="countHigh">0</span>)</button>
+                        <button class="filter-badge filter-medium" data-severity="medium">Medium (<span id="countMedium">0</span>)</button>
+                        <button class="filter-badge filter-low" data-severity="low">Low (<span id="countLow">0</span>)</button>
+                    </div>
+                </div>
+
+                <!-- Findings Cards Container -->
+                <div id="findingsContainer" class="findings-list">
+                    <!-- Dynamic findings with collapsible details will be injected here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Code Viewer Modal -->
+    <div id="codeViewerModal" class="modal-overlay hidden">
+        <div class="code-modal-content glass">
+            <div class="modal-header">
+                <div class="modal-header-title-row">
+                    <h2 id="codeModalTitle">Interactive Code Comparison</h2>
+                    <span id="codeModalSeverity" class="badge">CRITICAL</span>
+                </div>
+                <button id="closeCodeModalBtn" class="close-btn">&times;</button>
+            </div>
+            
+            <div class="code-modal-meta-row">
+                <span class="meta-label">File:</span>
+                <code id="codeModalFilePath">-</code>
+                <span id="codeModalLineNo" class="badge badge-outline">Line -</span>
+            </div>
+
+            <!-- Tabs: Before Fix vs After Fix -->
+            <div class="code-tabs">
+                <button class="code-tab-btn active" data-code-tab="before">Vulnerable Code (Before)</button>
+                <button class="code-tab-btn" data-code-tab="after">Remediated Code (After)</button>
+            </div>
+
+            <div class="code-viewer-container scrollable">
+                <!-- Line numbered code view -->
+                <div id="codeBeforePane" class="code-pane">
+                    <pre><code id="codeBeforeContent" class="code-lines"></code></pre>
+                </div>
+                <div id="codeAfterPane" class="code-pane hidden">
+                    <pre><code id="codeAfterContent" class="code-lines"></code></pre>
+                </div>
+            </div>
+
+            <div class="code-modal-footer">
+                <button id="copyCodeBtn" class="sec-btn">
+                    <span>Copy Code</span>
+                </button>
+                <button id="copyPatchBtn" class="sec-btn">
+                    <span>Copy Patch Diff</span>
+                </button>
+                <button id="downloadPatchBtn" class="primary-btn">
+                    <span>Download Patch</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/index.js"></script>
+</body>
+</html>
