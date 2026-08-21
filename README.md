@@ -73,7 +73,7 @@ Build and run the container locally in detached mode (`-d`), specifying your `GR
 docker build -t codeshield-ai .
 
 # Run the container in detached mode
-docker run -d -p 8000:8000 -e GROQ_API_KEY="your_groq_api_key_here" -e GROQ_MODEL="llama-3.3-70b-versatile" codeshield-ai
+docker run -d -p 8000:8000 -e GROQ_API_KEY="" -e GROQ_MODEL="llama-3.3-70b-versatile" codeshield-ai
 ```
 
 ### 3. Pull Published Release Image
@@ -83,7 +83,7 @@ CodeShield AI automatically publishes container builds to GitHub Container Regis
 docker pull ghcr.io/mohd-musheer/codeshield-ai:latest
 
 # Run the container in detached mode
-docker run -d -p 8000:8000 -e GROQ_API_KEY="your_groq_api_key_here" -e GROQ_MODEL="llama-3.3-70b-versatile" ghcr.io/mohd-musheer/codeshield-ai:latest
+docker run -d -p 8000:8000 -e GROQ_API_KEY="" -e GROQ_MODEL="llama-3.3-70b-versatile" ghcr.io/mohd-musheer/codeshield-ai:latest
 ```
 
 
