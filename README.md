@@ -59,7 +59,7 @@ CodeShield AI is a state-of-the-art, enterprise-quality codebase security analyz
 Launch the full container stack (including mounted volumes for logs and reports):
 ```bash
 # Provide your GROQ API Key in the shell environment or in .env
-export GROQ_API_KEY="your_groq_api_key"
+export GROQ_API_KEY=""
 
 # Build and start services
 docker-compose up --build -d
